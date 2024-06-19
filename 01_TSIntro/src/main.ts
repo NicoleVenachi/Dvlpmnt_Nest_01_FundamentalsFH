@@ -5,6 +5,7 @@ import { setupCounter } from './counter.ts'
 
 import { age, name, templateString } from './01-bases/01-types.ts'
 import { bulbasur, pokemonsIdx } from './01-bases/02-objects.ts'
+import { charmander } from './01-bases/03-classes.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -24,6 +25,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <p> Hello ${name} ${age} ${templateString}</p>
     <p> ${pokemonsIdx.join(',')} </p>
     <p> ${Object.values(bulbasur)}<p/>
+    <p> ${Object.values(charmander)}<p/>
     <p> <p/>
   </div>
 `
