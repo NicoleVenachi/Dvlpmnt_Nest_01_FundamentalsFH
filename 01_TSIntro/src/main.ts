@@ -5,7 +5,7 @@ import { setupCounter } from './counter.ts'
 
 import { age, name, templateString } from './01-bases/01-types.ts'
 import { bulbasur, pokemonsIdx } from './01-bases/02-objects.ts'
-import { charmander } from './01-bases/05-decorators.ts'
+import { charmander } from './01-bases/06-decorators2.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
