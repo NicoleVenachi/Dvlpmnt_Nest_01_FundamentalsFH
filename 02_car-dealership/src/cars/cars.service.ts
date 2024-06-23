@@ -68,4 +68,16 @@ export class CarsService {
 
     return carToUpdate; //updated car
   }
+
+  delete(id:string) {
+    
+    // validate if cars already exist (using exiting method to find by id)
+    let carToDelete = this.findOneById(id)
+
+    this.cars = this.cars.filter(car => car.id !== id)
+
+    return ; //undefined (simplemente enviara un 200)
+  }
+
+
 }

@@ -36,13 +36,10 @@ export class CarsController {
     return this.cars.update(id, UpdateCarDTO)
   }
 
-  
+
   @Delete('/:id')
-  deleteCar(@Param('id') id:string) {
-    return {
-      method: 'DELETE',
-      id
-    }
+  deleteCar(@Param('id', ParseUUIDPipe) id:string) {
+    return this.cars.delete(id)
   }
 }
 
