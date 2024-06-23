@@ -1,7 +1,7 @@
 
 import {v4 as uuid } from "uuid";
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCarDTO } from "./dto/create-car.dto";
+import { CreateCarDTO, UpdateCarDTO } from "./dto";
 
 @Injectable()
 export class CarsService {
@@ -45,5 +45,27 @@ export class CarsService {
     this.cars.push(car);
     
     return car
+  }
+
+  update(id:string, UpdateCarDTO:UpdateCarDTO) {
+    
+    // validate if cars already exist (using exiting method to find by id)
+    let carToUpdate = this.findOneById(id)
+
+    this.cars = this.cars.map(car => {
+      if (car.id === id) {
+        carToUpdate = {
+          ...carToUpdate,
+          ...UpdateCarDTO,
+          id, // agrega el id recibido en los params (por si el del body era distinto)
+        }
+        
+        return carToUpdate
+      }
+
+      return car; //sino hay match, regreso car normalito, sin hacerle nada
+    })
+
+    return carToUpdate; //updated car
   }
 }
