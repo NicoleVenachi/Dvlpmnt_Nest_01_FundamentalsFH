@@ -1,27 +1,25 @@
-
-import {v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCarDTO, UpdateCarDTO } from "./dto";
+import { CreateCarDTO, UpdateCarDTO } from './dto';
 
 @Injectable()
 export class CarsService {
-  
   private cars = [
-    {
-      id: uuid(),
-      brand: 'Toyota',
-      model: 'Corolla',
-    },
-    {
-      id: uuid(),
-      brand: 'Jeep',
-      model: 'Cherokee',
-    },
-    {
-      id: uuid(),
-      brand: 'Honda',
-      model: 'Civic',
-    }
+    // {
+    //   id: uuid(),
+    //   brand: 'Toyota',
+    //   model: 'Corolla',
+    // },
+    // {
+    //   id: uuid(),
+    //   brand: 'Jeep',
+    //   model: 'Cherokee',
+    // },
+    // {
+    //   id: uuid(),
+    //   brand: 'Honda',
+    //   model: 'Civic',
+    // }
   ];
 
   findAll() {
@@ -29,55 +27,51 @@ export class CarsService {
   }
 
   findOneById(id: string) {
-    const car = this.cars.find(car => car.id === id);    
+    const car = this.cars.find((car) => car.id === id);
 
     if (!car) throw new NotFoundException(`Car with id ${id} not found`);
 
-    return car
+    return car;
   }
 
-  create(CreateCarDTO:CreateCarDTO) {
+  create(CreateCarDTO: CreateCarDTO) {
     const car = {
       id: uuid(),
       ...CreateCarDTO,
-    }
+    };
 
     this.cars.push(car);
-    
-    return car
+
+    return car;
   }
 
-  update(id:string, UpdateCarDTO:UpdateCarDTO) {
-    
+  update(id: string, UpdateCarDTO: UpdateCarDTO) {
     // validate if cars already exist (using exiting method to find by id)
-    let carToUpdate = this.findOneById(id)
+    let carToUpdate = this.findOneById(id);
 
-    this.cars = this.cars.map(car => {
+    this.cars = this.cars.map((car) => {
       if (car.id === id) {
         carToUpdate = {
           ...carToUpdate,
           ...UpdateCarDTO,
           id, // agrega el id recibido en los params (por si el del body era distinto)
-        }
-        
-        return carToUpdate
+        };
+
+        return carToUpdate;
       }
 
       return car; //sino hay match, regreso car normalito, sin hacerle nada
-    })
+    });
 
     return carToUpdate; //updated car
   }
 
-  delete(id:string) {
-    
+  delete(id: string) {
     // validate if cars already exist (using exiting method to find by id)
-    let carToDelete = this.findOneById(id)
+    let carToDelete = this.findOneById(id);
 
-    this.cars = this.cars.filter(car => car.id !== id)
+    this.cars = this.cars.filter((car) => car.id !== id);
 
-    return ; //undefined (simplemente enviara un 200)
+    return; //undefined (simplemente enviara un 200)
   }
-
-
 }
